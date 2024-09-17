@@ -57,7 +57,7 @@ class MahasiswaService extends CoreService {
     $qb = QB::instance('mahasiswa m')
       ->select()
       ->select('p.nama AS pa', 'm.nrm AS nrm')
-      ->leftJoin('wisaka.pa', 'pa.nrm', 'm.nrm')
+      ->leftJoin('u4714151_wisaka.pa', 'pa.nrm', 'm.nrm')
       ->leftJoin('wis.pegawai p', 'p.nip', 'pa.nip')
       ->where('prodi', $prodi)
       ->where(QB::raw('SUBSTR(m.nrm, 1, 4)'), $angkatan)

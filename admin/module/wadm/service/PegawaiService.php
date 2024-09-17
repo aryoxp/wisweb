@@ -6,7 +6,7 @@ class PegawaiService extends CoreService {
     $db = self::instance('wis');
     $qb = QB::instance('pegawai p')
       ->select()
-      ->select(QB::raw('(SELECT COUNT(*) FROM wisaka.dosen d WHERE d.nip = p.nip) AS isdosen'))
+      ->select(QB::raw('(SELECT COUNT(*) FROM u4714151_wisaka.dosen d WHERE d.nip = p.nip) AS isdosen'))
       ->where('nama', 'LIKE', QB::esc('%'.$keyword.'%'))
       ->orderBy('nama')
       ->limit($offset, $perpage);

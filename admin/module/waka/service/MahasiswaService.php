@@ -64,12 +64,12 @@ class MahasiswaService extends CoreService {
   }
   public function getMahasiswaWithPA($nrm) {
     $db = self::instance('wisaka');
-    $qb = QB::instance('wis.mahasiswa m')
+    $qb = QB::instance('u4714151_wis.mahasiswa m')
       ->select()
       ->select('m.nrm')
       ->select('p.nama AS namapa')
       ->leftJoin('pa', 'pa.nrm', 'm.nrm')
-      ->leftJoin('wis.pegawai p', 'p.nip', 'pa.nip')
+      ->leftJoin('u4714151_wis.pegawai p', 'p.nip', 'pa.nip')
       ->where('m.nrm', QB::esc($nrm));
     $result = $db->getRow($qb->get());
     return $result; 
@@ -81,22 +81,22 @@ class MahasiswaService extends CoreService {
       ->select()
       ->select('m.nrm')
       ->select(QB::raw('(SELECT SUM(mk.sks) 
-        FROM wisaka.krsmatakuliah km 
-        LEFT JOIN wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
+        FROM u4714151_wisaka.krsmatakuliah km 
+        LEFT JOIN u4714151_wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
         WHERE km.nrm = m.nrm AND km.status = 1 AND km.bobotnilai > 1) AS jsks'))
       ->select(QB::raw('(SELECT SUM(km.bobotnilai * mk.sks) 
-        FROM wisaka.krsmatakuliah km
-        LEFT JOIN wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
+        FROM u4714151_wisaka.krsmatakuliah km
+        LEFT JOIN u4714151_wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
         WHERE km.nrm = m.nrm AND km.status = 1 AND km.bobotnilai > 1) AS snxk'))
       ->select(QB::raw('ROUND((SELECT SUM(km.bobotnilai * mk.sks) 
-        FROM wisaka.krsmatakuliah km
-        LEFT JOIN wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
+        FROM u4714151_wisaka.krsmatakuliah km
+        LEFT JOIN u4714151_wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
         WHERE km.nrm = m.nrm AND km.status = 1 AND km.bobotnilai > 1) / 
         (SELECT SUM(mk.sks) 
-        FROM wisaka.krsmatakuliah km 
-        LEFT JOIN wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
+        FROM u4714151_wisaka.krsmatakuliah km 
+        LEFT JOIN u4714151_wisaka.matakuliah mk ON mk.kdmk = km.kdmk AND mk.kurikulum = km.kurikulum
         WHERE km.nrm = m.nrm AND km.status = 1 AND km.bobotnilai > 1),3) AS ipk'))
-      ->leftJoin('wisaka.akademik wa', 'wa.nrm', 'm.nrm')
+      ->leftJoin('u4714151_wisaka.akademik wa', 'wa.nrm', 'm.nrm')
       ->where(QB::OG)
       ->where('m.nim', 'LIKE', QB::esc('%'.$keyword.'%'))
       ->where('m.nrm', 'LIKE', QB::esc('%'.$keyword.'%'), QB::OR)

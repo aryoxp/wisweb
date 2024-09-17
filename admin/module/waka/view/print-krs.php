@@ -27,7 +27,7 @@
     <tr>
       <td>NIM</td><td>: <?php echo $mahasiswa->nim; ?></td>
       <td>&nbsp;</td>
-      <td>Tahun Akademik</td><td>: <?php echo ((int)$krs->tahun) . "/" . ((int)$krs->tahun) + 1; ?></td>
+      <td>Tahun Akademik</td><td>: <?php echo ((int)$krs->tahun) . "/" . (((int)$krs->tahun) + 1); ?></td>
     </tr>
   </table>
 
